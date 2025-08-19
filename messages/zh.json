@@ -1,0 +1,164 @@
+{
+  "header": {
+    "nav": {
+      "home": "首页",
+      "features": "功能",
+      "about": "关于",
+      "contact": "联系"
+    },
+    "auth": {
+      "sign_in": "登录"
+    }
+  },
+  "pwa": {
+    "install": "安装应用"
+  },
+  "auth": {
+    "login": {
+      "title": "欢迎回来",
+      "description": "登录您的账户以继续",
+      "email": "邮箱",
+      "password": "密码",
+      "sign_in": "登录",
+      "signing_in": "登录中...",
+      "no_account": "还没有账户？",
+      "sign_up": "注册"
+    },
+    "register": {
+      "title": "创建账户",
+      "description": "注册以开始使用GlobalTech",
+      "name": "全名",
+      "name_placeholder": "输入您的全名",
+      "email": "邮箱",
+      "email_placeholder": "输入您的邮箱地址",
+      "password": "密码",
+      "password_placeholder": "创建密码",
+      "confirm_password": "确认密码",
+      "confirm_password_placeholder": "确认您的密码",
+      "password_mismatch": "密码不匹配",
+      "create_account": "创建账户",
+      "creating_account": "创建账户中...",
+      "have_account": "已有账户？",
+      "sign_in": "登录"
+    },
+    "user_menu": {
+      "profile": "个人资料",
+      "settings": "设置",
+      "logout": "退出"
+    }
+  },
+  "hero": {
+    "title": "用全球技术构建未来",
+    "subtitle": "通过尖端解决方案为全球企业赋能，实现规模化、安全性和创新。与数千家公司一起转型数字化存在。",
+    "cta": {
+      "primary": "开始使用",
+      "secondary": "观看演示"
+    }
+  },
+  "features": {
+    "title": "现代企业的强大功能",
+    "subtitle": "在当今数字化环境中成功所需的一切，专为性能和可扩展性而构建。",
+    "items": {
+      "performance": {
+        "title": "闪电般快速",
+        "description": "通过全球CDN和先进缓存策略优化速度。"
+      },
+      "security": {
+        "title": "企业级安全",
+        "description": "银行级安全，端到端加密和合规标准。"
+      },
+      "global": {
+        "title": "全球覆盖",
+        "description": "通过多区域部署和本地化为全球客户提供服务。"
+      },
+      "collaboration": {
+        "title": "团队协作",
+        "description": "内置工具，实现无缝团队协作和项目管理。"
+      },
+      "mobile": {
+        "title": "移动优先",
+        "description": "响应式设计，在所有设备和屏幕尺寸上完美运行。"
+      },
+      "analytics": {
+        "title": "高级分析",
+        "description": "深度洞察和实时分析，推动数据驱动的决策。"
+      }
+    }
+  },
+  "about": {
+    "title": "为什么选择GlobalTech？",
+    "description": "我们不仅仅是另一家技术公司。我们是您数字化转型的合作伙伴，致力于提供能够带来真正业务成果的解决方案。",
+    "benefits": {
+      "scalability": "随业务增长的可扩展架构",
+      "reliability": "99.9%正常运行时间保证，24/7监控",
+      "innovation": "尖端技术和持续创新",
+      "support": "全天候世界级支持团队"
+    },
+    "cta": "了解更多关于我们",
+    "stats": {
+      "uptime": "正常运行时间"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "准备好转型您的业务了吗？让我们讨论如何帮助您实现目标。",
+    "form": {
+      "title": "给我们发消息",
+      "description": "我们将在24小时内回复您。",
+      "name": "您的姓名",
+      "email": "您的邮箱",
+      "message": "您的消息",
+      "send": "发送消息",
+      "sending": "发送中...",
+      "success": {
+        "title": "消息已发送！",
+        "description": "感谢您的消息。我们很快会回复您。"
+      },
+      "error": {
+        "title": "错误",
+        "description": "出现了问题。请重试。"
+      }
+    },
+    "info": {
+      "title": "联系信息",
+      "description": "通过以下任何渠道联系我们。",
+      "email": {
+        "label": "邮箱"
+      },
+      "phone": {
+        "label": "电话"
+      },
+      "address": {
+        "label": "地址"
+      }
+    }
+  },
+  "footer": {
+    "description": "一次一个解决方案，构建技术的未来。",
+    "links": {
+      "product": {
+        "title": "产品",
+        "features": "功能",
+        "pricing": "定价",
+        "docs": "文档"
+      },
+      "company": {
+        "title": "公司",
+        "about": "关于",
+        "careers": "职业",
+        "contact": "联系"
+      },
+      "support": {
+        "title": "支持",
+        "help": "帮助中心",
+        "status": "状态",
+        "community": "社区"
+      }
+    },
+    "copyright": "© {year} GlobalTech。保留所有权利。",
+    "legal": {
+      "privacy": "隐私政策",
+      "terms": "服务条款"
+    }
+  }
+}

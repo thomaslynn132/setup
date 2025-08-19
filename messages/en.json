@@ -1,0 +1,164 @@
+{
+  "header": {
+    "nav": {
+      "home": "Home",
+      "features": "Features",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "auth": {
+      "sign_in": "Sign In"
+    }
+  },
+  "pwa": {
+    "install": "Install App"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "description": "Sign in to your account to continue",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign In",
+      "signing_in": "Signing in...",
+      "no_account": "Don't have an account?",
+      "sign_up": "Sign up"
+    },
+    "register": {
+      "title": "Create Account",
+      "description": "Sign up to get started with GlobalTech",
+      "name": "Full Name",
+      "name_placeholder": "Enter your full name",
+      "email": "Email",
+      "email_placeholder": "Enter your email address",
+      "password": "Password",
+      "password_placeholder": "Create a password",
+      "confirm_password": "Confirm Password",
+      "confirm_password_placeholder": "Confirm your password",
+      "password_mismatch": "Passwords do not match",
+      "create_account": "Create Account",
+      "creating_account": "Creating account...",
+      "have_account": "Already have an account?",
+      "sign_in": "Sign in"
+    },
+    "user_menu": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "hero": {
+    "title": "Build the Future with Global Technology",
+    "subtitle": "Empowering businesses worldwide with cutting-edge solutions that scale, secure, and innovate. Join thousands of companies transforming their digital presence.",
+    "cta": {
+      "primary": "Get Started",
+      "secondary": "Watch Demo"
+    }
+  },
+  "features": {
+    "title": "Powerful Features for Modern Businesses",
+    "subtitle": "Everything you need to succeed in today's digital landscape, built with performance and scalability in mind.",
+    "items": {
+      "performance": {
+        "title": "Lightning Fast",
+        "description": "Optimized for speed with global CDN and advanced caching strategies."
+      },
+      "security": {
+        "title": "Enterprise Security",
+        "description": "Bank-level security with end-to-end encryption and compliance standards."
+      },
+      "global": {
+        "title": "Global Reach",
+        "description": "Serve customers worldwide with multi-region deployment and localization."
+      },
+      "collaboration": {
+        "title": "Team Collaboration",
+        "description": "Built-in tools for seamless team collaboration and project management."
+      },
+      "mobile": {
+        "title": "Mobile First",
+        "description": "Responsive design that works perfectly on all devices and screen sizes."
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "description": "Deep insights and real-time analytics to drive data-driven decisions."
+      }
+    }
+  },
+  "about": {
+    "title": "Why Choose GlobalTech?",
+    "description": "We're not just another technology company. We're your partners in digital transformation, committed to delivering solutions that drive real business results.",
+    "benefits": {
+      "scalability": "Scalable architecture that grows with your business",
+      "reliability": "99.9% uptime guarantee with 24/7 monitoring",
+      "innovation": "Cutting-edge technology and continuous innovation",
+      "support": "World-class support team available around the clock"
+    },
+    "cta": "Learn More About Us",
+    "stats": {
+      "uptime": "Uptime"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Ready to transform your business? Let's discuss how we can help you achieve your goals.",
+    "form": {
+      "title": "Send us a message",
+      "description": "We'll get back to you within 24 hours.",
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": {
+        "title": "Message sent!",
+        "description": "Thank you for your message. We'll get back to you soon."
+      },
+      "error": {
+        "title": "Error",
+        "description": "Something went wrong. Please try again."
+      }
+    },
+    "info": {
+      "title": "Contact Information",
+      "description": "Reach out to us through any of these channels.",
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "address": {
+        "label": "Address"
+      }
+    }
+  },
+  "footer": {
+    "description": "Building the future of technology, one solution at a time.",
+    "links": {
+      "product": {
+        "title": "Product",
+        "features": "Features",
+        "pricing": "Pricing",
+        "docs": "Documentation"
+      },
+      "company": {
+        "title": "Company",
+        "about": "About",
+        "careers": "Careers",
+        "contact": "Contact"
+      },
+      "support": {
+        "title": "Support",
+        "help": "Help Center",
+        "status": "Status",
+        "community": "Community"
+      }
+    },
+    "copyright": "© {year} GlobalTech. All rights reserved.",
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  }
+}
