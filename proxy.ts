@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 const handleI18nRouting = createMiddleware(routing);
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const storedLocale = request.cookies.get("NEXT_LOCALE")?.value || false;
   const [, locale, ...segments] = request.nextUrl.pathname.split("/");
   const cookieStore = cookies();

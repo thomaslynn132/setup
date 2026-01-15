@@ -41,7 +41,3 @@ params: Promise<{ locale: string }>;
     </html>
   )
 }
-
-export const metadata = {
-      generator: 'v0.app'
-    };
