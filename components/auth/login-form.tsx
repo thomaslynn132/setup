@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { useAuthActions, useAuth } from "@/stores/auth-store"
+// import { Alert, AlertDescription } from "@/components/ui/alert"
+// import { useAuthActions, useAuth } from "@/stores/auth-store"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 
 interface LoginFormProps {
@@ -19,8 +19,8 @@ interface LoginFormProps {
 
 export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
   const t = useTranslations("auth")
-  const { login, clearError } = useAuthActions()
-  const { isLoading, error } = useAuth()
+  // const { login, clearError } = useAuthActions()
+  // const { isLoading, error } = useAuth()
 
   const [formData, setFormData] = useState({
     email: "",
@@ -30,10 +30,9 @@ export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    clearError()
+    // clearError()
 
     try {
-      await login(formData.email, formData.password)
       onSuccess?.()
     } catch (error) {
       // Error is handled by the store
@@ -55,11 +54,11 @@ export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {error && (
+          {/* {error && (
             <Alert variant="destructive">
               <AlertDescription>{error}</AlertDescription>
             </Alert>
-          )}
+          )} */}
 
           <div className="space-y-2">
             <Label htmlFor="email">{t("login.email")}</Label>
@@ -71,7 +70,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
               onChange={handleChange}
               placeholder="demo@example.com"
               required
-              disabled={isLoading}
+              // disabled={isLoading}
             />
           </div>
 
@@ -86,7 +85,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
                 onChange={handleChange}
                 placeholder="password"
                 required
-                disabled={isLoading}
+                // disabled={isLoading}
               />
               <Button
                 type="button"
@@ -94,22 +93,22 @@ export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
                 size="icon"
                 className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                 onClick={() => setShowPassword(!showPassword)}
-                disabled={isLoading}
+                // disabled={isLoading}
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </Button>
             </div>
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? (
+          <Button type="submit" className="w-full" >
+            {/* {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {t("login.signing_in")}
               </>
             ) : (
               t("login.sign_in")
-            )}
+            )} */}
           </Button>
 
           {onSwitchToRegister && (
@@ -120,7 +119,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister }: LoginFormProps) {
                 variant="link"
                 className="p-0 h-auto font-normal"
                 onClick={onSwitchToRegister}
-                disabled={isLoading}
+                // disabled={isLoading}
               >
                 {t("login.sign_up")}
               </Button>

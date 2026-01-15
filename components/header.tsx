@@ -7,14 +7,12 @@ import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { AuthModal } from "@/components/auth/auth-modal"
-import { UserMenu } from "@/components/auth/user-menu"
+// import { UserMenu } from "@/components/auth/user-menu"
 import { InstallButton } from "@/components/pwa/install-button"
-import { useAuth } from "@/stores/auth-store"
 import { Menu, X, Globe } from "lucide-react"
 
 export function Header() {
   const t = useTranslations("header")
-  const { isLoggedIn } = useAuth()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
@@ -67,11 +65,11 @@ export function Header() {
               <LanguageSwitcher />
               <ThemeToggle />
 
-              {isLoggedIn ? (
+              {/* {isLoggedIn ? (
                 <UserMenu />
               ) : (
                 <Button onClick={() => setIsAuthModalOpen(true)}>{t("auth.sign_in")}</Button>
-              )}
+              )} */}
 
               {/* Mobile menu button */}
               <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -99,7 +97,7 @@ export function Header() {
                 </a>
               ))}
 
-              {!isLoggedIn && (
+              {/* {!isLoggedIn && (
                 <Button
                   className="mt-4 w-full"
                   onClick={() => {
@@ -109,7 +107,7 @@ export function Header() {
                 >
                   {t("auth.sign_in")}
                 </Button>
-              )}
+              )} */}
             </motion.nav>
           )}
         </div>
