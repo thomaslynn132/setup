@@ -1,276 +1,164 @@
-// hooks/useCrud.ts
 import {
-  useQuery,
-  useMutation,
-  useInfiniteQuery,
-  useQueryClient,
+   useQuery,
+   useMutation,
+   useInfiniteQuery,
+   useQueryClient,
 } from '@tanstack/react-query';
 import { api } from './axios';
 
-type CrudHookProps<TPayload = any> = {
-  endpoint: string;
-  payload?: TPayload;
-  onSuccess?: () => void;
-  onError?: (error: any) => void;
-};
+/* -------------------- helpers -------------------- */
 
-export function useCrud<TResponse = any, TPayload = any>({
-  endpoint,
-  payload,
-  onSuccess,
-  onError,
-}: CrudHookProps<TPayload>) {
-  const queryClient = useQueryClient();
+const getHeaders = (payload?: any) =>
+   payload instanceof FormData
+      ? { 'Content-Type': 'multipart/form-data' }
+      : { 'Content-Type': 'application/json' };
 
-  const isFormData = (payload: any): payload is FormData =>
-    typeof FormData !== 'undefined' && payload instanceof FormData;
+/* ==================== GET LIST ==================== */
 
-  const headers = isFormData(payload)
-    ? { 'Content-Type': 'multipart/form-data' }
-    : { 'Content-Type': 'application/json' };
-
-  /* -------------------- GET QUERY -------------------- */
-  const getQuery = useQuery({
-    queryKey: [endpoint],
-    queryFn: async () => {
-      const res = await api.get<TResponse>(endpoint);
-      return res.data;
-    },
-  });
-  // Usage: const { data, isLoading, error } = getQuery;
-
-  /* -------------------- CREATE -------------------- */
-  const createMutation = useMutation({
-    mutationFn: async () => {
-      const res = await api.post(endpoint, payload, { headers });
-      return res.data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [endpoint] });
-      onSuccess?.();
-    },
-    onError: (err) => {
-      onError?.(err);
-    },
-  });
-  // Usage: createMutation.mutate();
-
-  /* -------------------- UPDATE -------------------- */
-  const updateMutation = useMutation({
-    mutationFn: async (id: string | number) => {
-      const res = await api.put(`${endpoint}/${id}`, payload, { headers });
-      return res.data;
-    },
-    onSuccess: (_, id) => {
-      queryClient.invalidateQueries({ queryKey: [endpoint] });
-      queryClient.invalidateQueries({ queryKey: [endpoint, id] });
-      onSuccess?.();
-    },
-    onError: (err) => {
-      onError?.(err);
-    },
-  });
-  // Usage: updateMutation.mutate(id);
-
-  /* -------------------- DELETE -------------------- */
-  const deleteMutation = useMutation({
-    mutationFn: async (id: string | number) => {
-      const res = await api.delete(`${endpoint}/${id}`);
-      return res.data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [endpoint] });
-      onSuccess?.();
-    },
-    onError: (err) => {
-      onError?.(err);
-    },
-  });
-  // Usage: deleteMutation.mutate(id);
-
-  /* -------------------- INFINITE QUERY -------------------- */
-  type InfiniteResponse<T> = {
-    data: T[];
-    nextPage?: number;
-  };
-
-  const infiniteQuery = useInfiniteQuery<InfiniteResponse<TResponse>, Error>({
-    queryKey: [endpoint, 'infinite'],
-    queryFn: async ({ pageParam = 1 }) => {
-      const res = await api.get<InfiniteResponse<TResponse>>(endpoint, {
-        params: { page: pageParam },
-      });
-      return res.data;
-    },
-    getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
-    initialPageParam: 1,
-  });
-  // Usage:
-  // const { data, fetchNextPage, hasNextPage } = infiniteQuery;
-  // const allItems = data?.pages.flatMap(page => page.data) ?? [];
-
-  return {
-    getQuery,
-    infiniteQuery,
-    createMutation,
-    updateMutation,
-    deleteMutation,
-  };
+export function useGetList<TResponse = any>({
+   endpoint,
+   enabled = true,
+}: {
+   endpoint: string;
+   enabled?: boolean;
+}) {
+   return useQuery({
+      queryKey: [endpoint],
+      enabled,
+      queryFn: async () => {
+         const res = await api.get<TResponse>(endpoint);
+         return res;
+      },
+   });
 }
 
+/* ==================== GET BY ID ==================== */
 
-// const MyComponent = () => {
-//   const [newName, setNewName] = useState('');
-//   const [editName, setEditName] = useState('');
-//   const [editId, setEditId] = useState<number | null>(null);
+export function useGetById<TResponse = any>({
+   endpoint,
+   id,
+   enabled = true,
+}: {
+   endpoint: string;
+   id?: string | number;
+   enabled?: boolean;
+}) {
+   return useQuery({
+      queryKey: [endpoint, id],
+      enabled: enabled && !!id,
+      queryFn: async () => {
+         if (!id) throw new Error('No ID provided');
+         const res = await api.get<TResponse>(`${endpoint}/${id}`);
+         return res;
+      },
+   });
+}
 
-//   const { getQuery, createMutation, updateMutation, deleteMutation, infiniteQuery } =
-//     useCrud<{ id: number; name: string }, { name: string }>({
-//       endpoint: '/users',
-//     });
+/* ==================== CREATE ==================== */
 
-//   // GET ALL
-//   const { data: users, isLoading, isError } = getQuery;
+export function useCreate<TPayload = any, TResponse = any>({
+   endpoint,
+   onSuccess,
+   onError,
+}: {
+   endpoint: string;
+   onSuccess?: () => void;
+   onError?: (error: any) => void;
+}) {
+   const queryClient = useQueryClient();
 
-//   // INFINITE QUERY
-//   const {
-//     data: infiniteData,
-//     fetchNextPage,
-//     hasNextPage,
-//     isFetchingNextPage,
-//   } = infiniteQuery;
-//   const allUsers = infiniteData?.pages.flatMap(page => page.data) ?? [];
+   return useMutation({
+      mutationFn: async (payload: TPayload) => {
+         const res = await api.post<TResponse>(endpoint, payload, {
+            headers: getHeaders(payload),
+         });
+         return res.data;
+      },
+      onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: [endpoint] });
+         onSuccess?.();
+      },
+      onError,
+   });
+}
 
-//   // CREATE
-//   const handleCreate = () => {
-//     if (!newName.trim()) return;
+/* ==================== UPDATE (PUT / PATCH) ==================== */
 
-//     createMutation.mutate(
-//       { name: newName },
-//       {
-//         onSuccess: () => {
-//           setNewName('');
-//           alert('User created!');
-//         },
-//         onError: (err) => alert('Create failed: ' + err),
-//       }
-//     );
-//   };
+export function useUpdate<TPayload = any, TResponse = any>({
+   endpoint,
+   method = 'put',
+   onSuccess,
+   onError,
+}: {
+   endpoint: string;
+   method?: 'put' | 'patch';
+   onSuccess?: () => void;
+   onError?: (error: any) => void;
+}) {
+   const queryClient = useQueryClient();
 
-//   // UPDATE
-//   const handleUpdate = (id: number) => {
-//     if (!editName.trim()) return;
+   return useMutation({
+      mutationFn: async ({
+         id,
+         payload,
+      }: {
+         id: string | number;
+         payload: TPayload;
+      }) => {
+         const res = await api[method]<TResponse>(
+            `${endpoint}/${id}`,
+            payload,
+            { headers: getHeaders(payload) },
+         );
+         return res.data;
+      },
+      onSuccess: (_, { id }) => {
+         queryClient.invalidateQueries({ queryKey: [endpoint] });
+         queryClient.invalidateQueries({ queryKey: [endpoint, id] });
+         onSuccess?.();
+      },
+      onError,
+   });
+}
 
-//     updateMutation.mutate(
-//       { id, name: editName },
-//       {
-//         onSuccess: () => {
-//           setEditId(null);
-//           setEditName('');
-//           alert('User updated!');
-//         },
-//         onError: (err) => alert('Update failed: ' + err),
-//       }
-//     );
-//   };
+/* ==================== DELETE ==================== */
 
-//   // DELETE
-//   const handleDelete = (id: number) => {
-//     deleteMutation.mutate(id, {
-//       onSuccess: () => alert('User deleted!'),
-//       onError: (err) => alert('Delete failed: ' + err),
-//     });
-//   };
+export function useDelete({
+   endpoint,
+   onSuccess,
+   onError,
+}: {
+   endpoint: string;
+   onSuccess?: () => void;
+   onError?: (error: any) => void;
+}) {
+   const queryClient = useQueryClient();
 
-//   if (isLoading) return <div>Loading users...</div>;
-//   if (isError) return <div>Error loading users</div>;
+   return useMutation({
+      mutationFn: async (id: string | number) => {
+         const res = await api.delete(`${endpoint}/${id}`);
+         return res.data;
+      },
+      onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: [endpoint] });
+         onSuccess?.();
+      },
+      onError,
+   });
+}
 
-//   return (
-//     <div className="p-4 space-y-4">
-//       <h1 className="text-xl font-bold">Users</h1>
+/* ==================== INFINITE LIST ==================== */
 
-//       {/* Create Form */}
-//       <div className="flex gap-2">
-//         <input
-//           type="text"
-//           placeholder="New user name"
-//           value={newName}
-//           onChange={(e) => setNewName(e.target.value)}
-//           className="border p-1"
-//         />
-//         <button
-//           onClick={handleCreate}
-//           className="bg-blue-500 text-white px-2 py-1 rounded"
-//           disabled={createMutation.isLoading}
-//         >
-//           {createMutation.isLoading ? 'Creating...' : 'Create'}
-//         </button>
-//       </div>
-
-//       {/* User List */}
-//       <div className="space-y-2">
-//         {allUsers.map((user) => (
-//           <div key={user.id} className="flex items-center gap-2">
-//             {editId === user.id ? (
-//               <>
-//                 <input
-//                   type="text"
-//                   value={editName}
-//                   onChange={(e) => setEditName(e.target.value)}
-//                   className="border p-1"
-//                 />
-//                 <button
-//                   onClick={() => handleUpdate(user.id)}
-//                   className="bg-green-500 text-white px-2 py-1 rounded"
-//                   disabled={updateMutation.isLoading}
-//                 >
-//                   {updateMutation.isLoading ? 'Saving...' : 'Save'}
-//                 </button>
-//                 <button
-//                   onClick={() => setEditId(null)}
-//                   className="bg-gray-300 px-2 py-1 rounded"
-//                 >
-//                   Cancel
-//                 </button>
-//               </>
-//             ) : (
-//               <>
-//                 <span>{user.name}</span>
-//                 <button
-//                   onClick={() => {
-//                     setEditId(user.id);
-//                     setEditName(user.name);
-//                   }}
-//                   className="bg-yellow-500 text-white px-2 py-1 rounded"
-//                 >
-//                   Edit
-//                 </button>
-//                 <button
-//                   onClick={() => handleDelete(user.id)}
-//                   className="bg-red-500 text-white px-2 py-1 rounded"
-//                   disabled={deleteMutation.isLoading}
-//                 >
-//                   {deleteMutation.isLoading ? 'Deleting...' : 'Delete'}
-//                 </button>
-//               </>
-//             )}
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Infinite Scroll Button */}
-//       {hasNextPage && (
-//         <button
-//           onClick={() => fetchNextPage()}
-//           className="bg-gray-800 text-white px-4 py-2 rounded mt-2"
-//           disabled={isFetchingNextPage}
-//         >
-//           {isFetchingNextPage ? 'Loading...' : 'Load More'}
-//         </button>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default MyComponent;
-
+export function useInfiniteList<TResponse = any>(endpoint: string) {
+   return useInfiniteQuery({
+      queryKey: [endpoint, 'infinite'],
+      initialPageParam: 1,
+      queryFn: async ({ pageParam }) => {
+         const res = await api.get<TResponse>(endpoint, {
+            params: { page: pageParam },
+         });
+         return res.data;
+      },
+      getNextPageParam: (last: any) => last?.nextPage,
+   });
+}
