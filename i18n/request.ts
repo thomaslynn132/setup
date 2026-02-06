@@ -6,7 +6,7 @@ export default getRequestConfig(async ({ locale }) => {
   const safeLocale = routing.locales.includes(locale as any)
     ? (locale as string)
     : routing.defaultLocale; // e.g. "en"
-
+// abcd
   return {
     locale: safeLocale,
     messages: (await import(`../messages/${safeLocale}.json`)).default,
